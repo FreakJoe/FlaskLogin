@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
+from flask_login import LoginManager
 from config import basedir
 
 class CustomFlask(Flask):
@@ -13,11 +14,23 @@ class CustomFlask(Flask):
         comment_end_string='#}',
     ))
 
-app = CustomFlask(__name__)
-app.config.from_object('config')
-db = SQLAlchemy(app)
+db = SQLAlchemy()
+lm = LoginManager()
+lm.session_protection = 'strong'
+lm.login_view = 'auth.login'
 
-from .auth import auth as auth_blueprint
-app.register_blueprint(auth_blueprint, url_prefix='/auth')
+def create_app(config_name):
+    app = CustomFlask(__name__)
+    app.config.from_object(config_name)
+
+    db.init_app(app)
+    lm.init_app(app)
+
+    from .auth import auth as auth_blueprint
+    app.register_blueprint(auth_blueprint, url_prefix='/auth')
+
+    return app
+
+app = create_app('config')
 
 from app import views, models

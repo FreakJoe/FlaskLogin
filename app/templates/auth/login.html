@@ -1,0 +1,18 @@
+<html>
+
+	<head>
+		<title>FlaskLogin</title>
+	</head>
+
+	<body>
+		<form method="POST">
+			[[ form.hidden_tag() ]]
+
+			[[ form.email.label ]] [[ form.email() ]]
+			[[ form.password.label() ]] [[ form.password() ]]
+			[[ form.remember_me.label() ]] [[ form.remember_me() ]]
+			[[ form.submit.label() ]] [[ form.submit() ]]
+		</form>
+	</body>
+
+</html>

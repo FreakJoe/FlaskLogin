@@ -4,6 +4,5 @@ from app import app, db, models
 
 @app.route('/')
 @app.route('/index')
-@login_required
 def index():
-	return 'Index'
+	return render_template('index.html')

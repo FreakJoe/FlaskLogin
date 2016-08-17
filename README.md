@@ -1,0 +1,1 @@
+This project's simple goal is to create a functioning login system using Flask.
